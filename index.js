@@ -16,11 +16,11 @@ app.use(cors({
     origin: process.env.CLIENT_URL || 'http://localhost:5173',
     credentials: true,
 }));
-
+console.log(process.env.CLIENT_URL);
 const io = new Server(server, {
     cors: {
         origin: process.env.CLIENT_URL || "http://localhost:5173",
-        methods: ["GET", "POST"],
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
         credentials: true
     }
 });
@@ -31,6 +31,8 @@ const connectDB = async () => {
         await mongoose.connect(process.env.MONGO_URI);
         console.log(process.env.MONGO_URI)
         console.log('MongoDB Connected');
+  console.log(process.env.CLIENT_URL);
+
     } catch (err) {
         console.error('MongoDB Connection Error:', err);
         process.exit(1);
