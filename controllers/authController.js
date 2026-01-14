@@ -54,8 +54,13 @@ const loginUser = async (req, res) => {
 };
 
 const logoutUser = (req, res) => {
+    const isProd = process.env.NODE_ENV === 'production';
+    
     res.cookie('jwt', '', {
         httpOnly: true,
+        secure: isProd,
+        sameSite: isProd ? 'none' : 'lax',
+        path: '/',
         expires: new Date(0),
     });
     res.status(200).json({ message: 'Logged out successfully' });
